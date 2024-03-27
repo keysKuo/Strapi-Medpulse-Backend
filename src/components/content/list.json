@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_lists",
+  "info": {
+    "displayName": "TextList",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "item": {
+      "type": "string"
+    }
+  }
+}
