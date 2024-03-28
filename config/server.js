@@ -4,6 +4,7 @@ module.exports = ({ env }) => ({
   app: {
     keys: env.array("APP_KEYS"),
   },
+  url: env('MY_STRAPI_URL', 'http://localhost:1337'), // Thêm dòng này
   webhooks: {
     populateRelations: env.bool("WEBHOOKS_POPULATE_RELATIONS", false),
   },
