@@ -35,6 +35,36 @@
         }
       },
       "component": "content.post"
+    },
+    "GioiThieuMPM": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "CaseStudy": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "Partners": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.text-with-logo"
     }
   }
 }

@@ -362,6 +362,37 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiCaseStudyCaseStudy extends Schema.SingleType {
+  collectionName: 'case_studies';
+  info: {
+    singularName: 'case-study';
+    pluralName: 'case-studies';
+    displayName: 'Trang Case Study';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    BacSi: Attribute.Component<'content.post', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::case-study.case-study',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::case-study.case-study',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTrangChuTrangChu extends Schema.SingleType {
   collectionName: 'trang_chus';
   info: {
@@ -386,6 +417,24 @@ export interface ApiTrangChuTrangChu extends Schema.SingleType {
         };
       }>;
     TrienKhai: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    GioiThieuMPM: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    CaseStudy: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Partners: Attribute.Component<'content.text-with-logo', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -851,6 +900,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::trang-chu.trang-chu': ApiTrangChuTrangChu;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
