@@ -1,0 +1,59 @@
+{
+  "kind": "singleType",
+  "collectionName": "trang_gioi_thieu_mpms",
+  "info": {
+    "singularName": "trang-gioi-thieu-mpm",
+    "pluralName": "trang-gioi-thieu-mpms",
+    "displayName": "Trang Giới Thiệu MPM"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "Proficiency": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "IntroduceMPM": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "Expert": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "Services": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    }
+  }
+}

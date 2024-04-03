@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_content_contents",
+  "info": {
+    "displayName": "Content"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "img": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

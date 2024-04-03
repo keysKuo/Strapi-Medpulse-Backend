@@ -10,19 +10,11 @@
     "title": {
       "type": "string"
     },
-    "desc": {
-      "type": "text"
-    },
-    "img": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+    "content": {
+      "displayName": "Content",
+      "type": "component",
+      "repeatable": true,
+      "component": "content.content"
     }
   }
 }

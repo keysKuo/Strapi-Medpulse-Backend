@@ -590,6 +590,53 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -741,53 +788,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiCaseStudyCaseStudy extends Schema.SingleType {
   collectionName: 'case_studies';
   info: {
@@ -800,7 +800,9 @@ export interface ApiCaseStudyCaseStudy extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    BacSi: Attribute.Component<'content.post', true>;
+    content: Attribute.DynamicZone<
+      ['content.post', 'content.list', 'content.text-with-logo']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -816,6 +818,102 @@ export interface ApiCaseStudyCaseStudy extends Schema.SingleType {
       'admin::user'
     > &
       Attribute.Private;
+  };
+}
+
+export interface ApiContentContent extends Schema.CollectionType {
+  collectionName: 'contents';
+  info: {
+    singularName: 'content';
+    pluralName: 'contents';
+    displayName: 'Content';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    label: Attribute.String;
+    body: Attribute.Component<'content.post', true>;
+    files: Attribute.Media;
+    slug: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::content.content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::content.content',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPostPost extends Schema.CollectionType {
+  collectionName: 'posts';
+  info: {
+    singularName: 'post';
+    pluralName: 'posts';
+    displayName: 'Post';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    thumbnail: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    body: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'toolbar';
+        }
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    document: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::post.post',
+      'oneToMany',
+      'api::post.post'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -836,25 +934,25 @@ export interface ApiTrangChuTrangChu extends Schema.SingleType {
     };
   };
   attributes: {
-    DichVu: Attribute.Component<'content.post', true> &
+    Services: Attribute.Component<'content.post'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    TrienKhai: Attribute.Component<'content.post', true> &
+    Operations: Attribute.Component<'content.post'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    GioiThieuMPM: Attribute.Component<'content.post', true> &
+    IntroduceMPM: Attribute.Component<'content.post'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    CaseStudy: Attribute.Component<'content.post', true> &
+    CaseStudy: Attribute.Component<'content.post'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -890,6 +988,322 @@ export interface ApiTrangChuTrangChu extends Schema.SingleType {
   };
 }
 
+export interface ApiTrangComboFanpageTrangComboFanpage
+  extends Schema.SingleType {
+  collectionName: 'trang_combo_fanpages';
+  info: {
+    singularName: 'trang-combo-fanpage';
+    pluralName: 'trang-combo-fanpages';
+    displayName: 'Trang Combo Fanpage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Services: Attribute.Component<'content.post', true>;
+    Businesses: Attribute.Component<'content.post', true>;
+    Benefits: Attribute.Component<'content.post', true>;
+    Differences: Attribute.Component<'content.post', true>;
+    Combo: Attribute.Component<'content.post', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-combo-fanpage.trang-combo-fanpage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-combo-fanpage.trang-combo-fanpage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTrangComboQuayDungTrangComboQuayDung
+  extends Schema.SingleType {
+  collectionName: 'trang_combo_quay_dungs';
+  info: {
+    singularName: 'trang-combo-quay-dung';
+    pluralName: 'trang-combo-quay-dungs';
+    displayName: 'Trang Combo Quay D\u1EF1ng';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Services: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Businesses: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Benefits: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Differences: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Combo: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-combo-quay-dung.trang-combo-quay-dung',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-combo-quay-dung.trang-combo-quay-dung',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::trang-combo-quay-dung.trang-combo-quay-dung',
+      'oneToMany',
+      'api::trang-combo-quay-dung.trang-combo-quay-dung'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiTrangComboTikTokTrangComboTikTok extends Schema.SingleType {
+  collectionName: 'trang_combo_tik_toks';
+  info: {
+    singularName: 'trang-combo-tik-tok';
+    pluralName: 'trang-combo-tik-toks';
+    displayName: 'Trang Combo TikTok';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Services: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Businesses: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Benefits: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Differences: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Combo: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-combo-tik-tok.trang-combo-tik-tok',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-combo-tik-tok.trang-combo-tik-tok',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::trang-combo-tik-tok.trang-combo-tik-tok',
+      'oneToMany',
+      'api::trang-combo-tik-tok.trang-combo-tik-tok'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiTrangComboWebsiteTrangComboWebsite
+  extends Schema.SingleType {
+  collectionName: 'trang_combo_websites';
+  info: {
+    singularName: 'trang-combo-website';
+    pluralName: 'trang-combo-websites';
+    displayName: 'Trang Combo Website';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Services: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Businesses: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Benefits: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Differences: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Combo: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-combo-website.trang-combo-website',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-combo-website.trang-combo-website',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::trang-combo-website.trang-combo-website',
+      'oneToMany',
+      'api::trang-combo-website.trang-combo-website'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiTrangGioiThieuMpmTrangGioiThieuMpm
+  extends Schema.SingleType {
+  collectionName: 'trang_gioi_thieu_mpms';
+  info: {
+    singularName: 'trang-gioi-thieu-mpm';
+    pluralName: 'trang-gioi-thieu-mpms';
+    displayName: 'Trang Gi\u1EDBi Thi\u1EC7u MPM';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Proficiency: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    IntroduceMPM: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Expert: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Services: Attribute.Component<'content.post', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm',
+      'oneToMany',
+      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -904,12 +1318,19 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
+      'api::content.content': ApiContentContent;
+      'api::post.post': ApiPostPost;
       'api::trang-chu.trang-chu': ApiTrangChuTrangChu;
+      'api::trang-combo-fanpage.trang-combo-fanpage': ApiTrangComboFanpageTrangComboFanpage;
+      'api::trang-combo-quay-dung.trang-combo-quay-dung': ApiTrangComboQuayDungTrangComboQuayDung;
+      'api::trang-combo-tik-tok.trang-combo-tik-tok': ApiTrangComboTikTokTrangComboTikTok;
+      'api::trang-combo-website.trang-combo-website': ApiTrangComboWebsiteTrangComboWebsite;
+      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm': ApiTrangGioiThieuMpmTrangGioiThieuMpm;
     }
   }
 }

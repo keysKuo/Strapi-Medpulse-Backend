@@ -1,0 +1,70 @@
+{
+  "kind": "singleType",
+  "collectionName": "trang_combo_websites",
+  "info": {
+    "singularName": "trang-combo-website",
+    "pluralName": "trang-combo-websites",
+    "displayName": "Trang Combo Website",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "Services": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "Businesses": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "Benefits": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "Differences": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    },
+    "Combo": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "content.post"
+    }
+  }
+}

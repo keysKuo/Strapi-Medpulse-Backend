@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "trang_combo_fanpages",
+  "info": {
+    "singularName": "trang-combo-fanpage",
+    "pluralName": "trang-combo-fanpages",
+    "displayName": "Trang Combo Fanpage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Services": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.post"
+    },
+    "Businesses": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.post"
+    },
+    "Benefits": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.post"
+    },
+    "Differences": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.post"
+    },
+    "Combo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.post"
+    }
+  }
+}

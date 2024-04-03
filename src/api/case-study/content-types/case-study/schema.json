@@ -12,10 +12,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "BacSi": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.post"
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "content.post",
+        "content.list",
+        "content.text-with-logo"
+      ]
     }
   }
 }

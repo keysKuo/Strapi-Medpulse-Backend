@@ -16,9 +16,9 @@
     }
   },
   "attributes": {
-    "DichVu": {
+    "Services": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -26,9 +26,9 @@
       },
       "component": "content.post"
     },
-    "TrienKhai": {
+    "Operations": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -36,9 +36,9 @@
       },
       "component": "content.post"
     },
-    "GioiThieuMPM": {
+    "IntroduceMPM": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -48,7 +48,7 @@
     },
     "CaseStudy": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
