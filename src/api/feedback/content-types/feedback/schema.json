@@ -48,7 +48,7 @@
       },
       "type": "text"
     },
-    "avatar": {
+    "img": {
       "type": "media",
       "multiple": false,
       "required": false,

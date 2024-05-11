@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "combos",
+  "info": {
+    "singularName": "trang-combo",
+    "pluralName": "combos",
+    "displayName": "Trang Combo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "href": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
+    },
+    "cards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
+    },
+    "pricings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pricing.pricing"
+    }
+  }
+}

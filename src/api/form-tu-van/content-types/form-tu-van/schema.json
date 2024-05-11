@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form",
+  "info": {
+    "singularName": "form-tu-van",
+    "pluralName": "form",
+    "displayName": "Form Tư Vấn",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullname": {
+      "type": "string",
+      "required": true,
+      "regex": "^[A-Z][a-z]+\\s[A-Z][a-z]+(?:\\s[A-Z][a-z]+)*$"
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 10,
+      "minLength": 10,
+      "regex": "^\\d{10}$"
+    },
+    "email": {
+      "type": "email"
+    },
+    "major": {
+      "type": "string"
+    }
+  }
+}
