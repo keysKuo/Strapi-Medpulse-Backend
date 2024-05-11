@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trang_dich_vu_giai_phap_thuong_hieus",
+  "info": {
+    "singularName": "trang-dich-vu-giai-phap-thuong-hieu",
+    "pluralName": "trang-dich-vu-giai-phap-thuong-hieus",
+    "displayName": "Trang Dịch Vụ - Giải Pháp Thương Hiệu",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "href": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
+    },
+    "noi_dung_giai_phap": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
+    }
+  }
+}

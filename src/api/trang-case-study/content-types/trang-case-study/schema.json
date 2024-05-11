@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trang_case_studies",
+  "info": {
+    "singularName": "trang-case-study",
+    "pluralName": "trang-case-studies",
+    "displayName": "Trang Case Study"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "href": {
+      "type": "string"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post"
+    }
+  }
+}

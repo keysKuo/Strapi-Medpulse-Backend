@@ -590,6 +590,48 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginCustomApiCustomApi extends Schema.CollectionType {
+  collectionName: 'custom_apis';
+  info: {
+    singularName: 'custom-api';
+    pluralName: 'custom-apis';
+    displayName: 'Custom API';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'plugin::custom-api.custom-api', 'name'> &
+      Attribute.Required;
+    selectedContentType: Attribute.JSON;
+    structure: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::custom-api.custom-api',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::custom-api.custom-api',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginI18NLocale extends Schema.CollectionType {
   collectionName: 'i18n_locale';
   info: {
@@ -788,70 +830,311 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiCaseStudyCaseStudy extends Schema.SingleType {
-  collectionName: 'case_studies';
+export interface ApiBannerBanner extends Schema.CollectionType {
+  collectionName: 'banners';
   info: {
-    singularName: 'case-study';
-    pluralName: 'case-studies';
-    displayName: 'Trang Case Study';
-    description: '';
+    singularName: 'banner';
+    pluralName: 'banners';
+    displayName: 'Banner';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    content: Attribute.DynamicZone<
-      ['content.post', 'content.list', 'content.text-with-logo']
-    >;
+    heading: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    body: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    background: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    href: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.UID<'api::banner.banner', 'heading'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::case-study.case-study',
+      'api::banner.banner',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::case-study.case-study',
+      'api::banner.banner',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::banner.banner',
+      'oneToMany',
+      'api::banner.banner'
+    >;
+    locale: Attribute.String;
   };
 }
 
-export interface ApiContentContent extends Schema.CollectionType {
-  collectionName: 'contents';
+export interface ApiCardCard extends Schema.CollectionType {
+  collectionName: 'cards';
   info: {
-    singularName: 'content';
-    pluralName: 'contents';
-    displayName: 'Content';
-    description: '';
+    singularName: 'card';
+    pluralName: 'cards';
+    displayName: 'Card';
   };
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    label: Attribute.String;
-    body: Attribute.Component<'content.post', true>;
-    files: Attribute.Media;
-    slug: Attribute.String;
+    heading: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    body: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    img: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    href: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.UID<'api::card.card', 'heading'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::card.card', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::card.card', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::card.card',
+      'oneToMany',
+      'api::card.card'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiCheckListCheckList extends Schema.CollectionType {
+  collectionName: 'check_lists';
+  info: {
+    singularName: 'check-list';
+    pluralName: 'check-lists';
+    displayName: 'CheckList';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    label: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    checked: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::content.content',
+      'api::check-list.check-list',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::content.content',
+      'api::check-list.check-list',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::check-list.check-list',
+      'oneToMany',
+      'api::check-list.check-list'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiFeedbackFeedback extends Schema.CollectionType {
+  collectionName: 'feedbacks';
+  info: {
+    singularName: 'feedback';
+    pluralName: 'feedbacks';
+    displayName: 'Feedback';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    customer: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    major: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    location: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    body: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    avatar: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::feedback.feedback',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::feedback.feedback',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::feedback.feedback',
+      'oneToMany',
+      'api::feedback.feedback'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiPartnerPartner extends Schema.CollectionType {
+  collectionName: 'partners';
+  info: {
+    singularName: 'partner';
+    pluralName: 'partners';
+    displayName: 'Partner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    img: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::partner.partner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::partner.partner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::partner.partner',
+      'oneToMany',
+      'api::partner.partner'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -861,6 +1144,7 @@ export interface ApiPostPost extends Schema.CollectionType {
     singularName: 'post';
     pluralName: 'posts';
     displayName: 'Post';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -877,7 +1161,7 @@ export interface ApiPostPost extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    thumbnail: Attribute.Media &
+    subtitle: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -895,7 +1179,32 @@ export interface ApiPostPost extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    document: Attribute.Media &
+    thumb: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    href: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.UID<'api::post.post', 'title'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tag: Attribute.Enumeration<
+      [
+        'Tin t\u1EE9c',
+        'Ki\u1EBFn th\u1EE9c',
+        'Case Study',
+        'S\u1EF1 ki\u1EC7n - \u01AFu \u0111\u00E3i'
+      ]
+    > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -917,12 +1226,163 @@ export interface ApiPostPost extends Schema.CollectionType {
   };
 }
 
-export interface ApiTrangChuTrangChu extends Schema.SingleType {
+export interface ApiPricingPricing extends Schema.CollectionType {
+  collectionName: 'pricings';
+  info: {
+    singularName: 'pricing';
+    pluralName: 'pricings';
+    displayName: 'Pricing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    subtitle1: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    subtitle2: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    benefits: Attribute.Relation<
+      'api::pricing.pricing',
+      'oneToMany',
+      'api::check-list.check-list'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pricing.pricing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pricing.pricing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::pricing.pricing',
+      'oneToMany',
+      'api::pricing.pricing'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiStatisticStatistic extends Schema.CollectionType {
+  collectionName: 'statistics';
+  info: {
+    singularName: 'statistic';
+    pluralName: 'statistics';
+    displayName: 'Statistic';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    number: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    text: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::statistic.statistic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::statistic.statistic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::statistic.statistic',
+      'oneToMany',
+      'api::statistic.statistic'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiTrangCaseStudyTrangCaseStudy extends Schema.CollectionType {
+  collectionName: 'trang_case_studies';
+  info: {
+    singularName: 'trang-case-study';
+    pluralName: 'trang-case-studies';
+    displayName: 'Trang Case Study';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    href: Attribute.String;
+    posts: Attribute.Relation<
+      'api::trang-case-study.trang-case-study',
+      'oneToMany',
+      'api::post.post'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-case-study.trang-case-study',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-case-study.trang-case-study',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTrangChuTrangChu extends Schema.CollectionType {
   collectionName: 'trang_chus';
   info: {
     singularName: 'trang-chu';
     pluralName: 'trang-chus';
-    displayName: 'Trang ch\u1EE7';
+    displayName: 'Trang Ch\u1EE7';
     description: '';
   };
   options: {
@@ -934,36 +1394,48 @@ export interface ApiTrangChuTrangChu extends Schema.SingleType {
     };
   };
   attributes: {
-    Services: Attribute.Component<'content.post'> &
+    name: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Operations: Attribute.Component<'content.post'> &
+    href: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    IntroduceMPM: Attribute.Component<'content.post'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    CaseStudy: Attribute.Component<'content.post'> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Partners: Attribute.Component<'content.text-with-logo', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    banner: Attribute.Relation<
+      'api::trang-chu.trang-chu',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    dich_vu_cung_cap: Attribute.Relation<
+      'api::trang-chu.trang-chu',
+      'oneToMany',
+      'api::card.card'
+    >;
+    thong_ke_chat_luong: Attribute.Relation<
+      'api::trang-chu.trang-chu',
+      'oneToMany',
+      'api::statistic.statistic'
+    >;
+    doi_tac: Attribute.Relation<
+      'api::trang-chu.trang-chu',
+      'oneToMany',
+      'api::partner.partner'
+    >;
+    feedbacks: Attribute.Relation<
+      'api::trang-chu.trang-chu',
+      'oneToMany',
+      'api::feedback.feedback'
+    >;
+    reviews: Attribute.Relation<
+      'api::trang-chu.trang-chu',
+      'oneToMany',
+      'api::post.post'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -989,7 +1461,7 @@ export interface ApiTrangChuTrangChu extends Schema.SingleType {
 }
 
 export interface ApiTrangComboFanpageTrangComboFanpage
-  extends Schema.SingleType {
+  extends Schema.CollectionType {
   collectionName: 'trang_combo_fanpages';
   info: {
     singularName: 'trang-combo-fanpage';
@@ -1000,12 +1472,39 @@ export interface ApiTrangComboFanpageTrangComboFanpage
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    Services: Attribute.Component<'content.post', true>;
-    Businesses: Attribute.Component<'content.post', true>;
-    Benefits: Attribute.Component<'content.post', true>;
-    Differences: Attribute.Component<'content.post', true>;
-    Combo: Attribute.Component<'content.post', true>;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    href: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    banner: Attribute.Relation<
+      'api::trang-combo-fanpage.trang-combo-fanpage',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    noi_dung_combo: Attribute.Relation<
+      'api::trang-combo-fanpage.trang-combo-fanpage',
+      'oneToMany',
+      'api::card.card'
+    >;
+    pricings: Attribute.Relation<
+      'api::trang-combo-fanpage.trang-combo-fanpage',
+      'oneToMany',
+      'api::pricing.pricing'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1021,17 +1520,22 @@ export interface ApiTrangComboFanpageTrangComboFanpage
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::trang-combo-fanpage.trang-combo-fanpage',
+      'oneToMany',
+      'api::trang-combo-fanpage.trang-combo-fanpage'
+    >;
+    locale: Attribute.String;
   };
 }
 
 export interface ApiTrangComboQuayDungTrangComboQuayDung
-  extends Schema.SingleType {
+  extends Schema.CollectionType {
   collectionName: 'trang_combo_quay_dungs';
   info: {
     singularName: 'trang-combo-quay-dung';
     pluralName: 'trang-combo-quay-dungs';
     displayName: 'Trang Combo Quay D\u1EF1ng';
-    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1042,36 +1546,33 @@ export interface ApiTrangComboQuayDungTrangComboQuayDung
     };
   };
   attributes: {
-    Services: Attribute.Component<'content.post', true> &
+    name: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Businesses: Attribute.Component<'content.post', true> &
+    href: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Benefits: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Differences: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Combo: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    banner: Attribute.Relation<
+      'api::trang-combo-quay-dung.trang-combo-quay-dung',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    noi_dung_combo: Attribute.Relation<
+      'api::trang-combo-quay-dung.trang-combo-quay-dung',
+      'oneToMany',
+      'api::card.card'
+    >;
+    pricings: Attribute.Relation<
+      'api::trang-combo-quay-dung.trang-combo-quay-dung',
+      'oneToMany',
+      'api::pricing.pricing'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1096,13 +1597,13 @@ export interface ApiTrangComboQuayDungTrangComboQuayDung
   };
 }
 
-export interface ApiTrangComboTikTokTrangComboTikTok extends Schema.SingleType {
-  collectionName: 'trang_combo_tik_toks';
+export interface ApiTrangComboTiktokTrangComboTiktok
+  extends Schema.CollectionType {
+  collectionName: 'trang_combo_tiktoks';
   info: {
-    singularName: 'trang-combo-tik-tok';
-    pluralName: 'trang-combo-tik-toks';
-    displayName: 'Trang Combo TikTok';
-    description: '';
+    singularName: 'trang-combo-tiktok';
+    pluralName: 'trang-combo-tiktoks';
+    displayName: 'Trang Combo Tiktok';
   };
   options: {
     draftAndPublish: true;
@@ -1113,62 +1614,59 @@ export interface ApiTrangComboTikTokTrangComboTikTok extends Schema.SingleType {
     };
   };
   attributes: {
-    Services: Attribute.Component<'content.post', true> &
+    name: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Businesses: Attribute.Component<'content.post', true> &
+    href: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Benefits: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Differences: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Combo: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    banner: Attribute.Relation<
+      'api::trang-combo-tiktok.trang-combo-tiktok',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    noi_dung_combo: Attribute.Relation<
+      'api::trang-combo-tiktok.trang-combo-tiktok',
+      'oneToMany',
+      'api::card.card'
+    >;
+    pricings: Attribute.Relation<
+      'api::trang-combo-tiktok.trang-combo-tiktok',
+      'oneToMany',
+      'api::pricing.pricing'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::trang-combo-tik-tok.trang-combo-tik-tok',
+      'api::trang-combo-tiktok.trang-combo-tiktok',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::trang-combo-tik-tok.trang-combo-tik-tok',
+      'api::trang-combo-tiktok.trang-combo-tiktok',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     localizations: Attribute.Relation<
-      'api::trang-combo-tik-tok.trang-combo-tik-tok',
+      'api::trang-combo-tiktok.trang-combo-tiktok',
       'oneToMany',
-      'api::trang-combo-tik-tok.trang-combo-tik-tok'
+      'api::trang-combo-tiktok.trang-combo-tiktok'
     >;
     locale: Attribute.String;
   };
 }
 
 export interface ApiTrangComboWebsiteTrangComboWebsite
-  extends Schema.SingleType {
+  extends Schema.CollectionType {
   collectionName: 'trang_combo_websites';
   info: {
     singularName: 'trang-combo-website';
@@ -1185,36 +1683,33 @@ export interface ApiTrangComboWebsiteTrangComboWebsite
     };
   };
   attributes: {
-    Services: Attribute.Component<'content.post', true> &
+    name: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Businesses: Attribute.Component<'content.post', true> &
+    href: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Benefits: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Differences: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Combo: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    banner: Attribute.Relation<
+      'api::trang-combo-website.trang-combo-website',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    noi_dung_combo: Attribute.Relation<
+      'api::trang-combo-website.trang-combo-website',
+      'oneToMany',
+      'api::card.card'
+    >;
+    pricings: Attribute.Relation<
+      'api::trang-combo-website.trang-combo-website',
+      'oneToMany',
+      'api::pricing.pricing'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1239,13 +1734,14 @@ export interface ApiTrangComboWebsiteTrangComboWebsite
   };
 }
 
-export interface ApiTrangGioiThieuMpmTrangGioiThieuMpm
-  extends Schema.SingleType {
-  collectionName: 'trang_gioi_thieu_mpms';
+export interface ApiTrangDichVuGiaiPhapThuongHieuTrangDichVuGiaiPhapThuongHieu
+  extends Schema.CollectionType {
+  collectionName: 'trang_dich_vu_giai_phap_thuong_hieus';
   info: {
-    singularName: 'trang-gioi-thieu-mpm';
-    pluralName: 'trang-gioi-thieu-mpms';
-    displayName: 'Trang Gi\u1EDBi Thi\u1EC7u MPM';
+    singularName: 'trang-dich-vu-giai-phap-thuong-hieu';
+    pluralName: 'trang-dich-vu-giai-phap-thuong-hieus';
+    displayName: 'Trang D\u1ECBch V\u1EE5 - Gi\u1EA3i Ph\u00E1p Th\u01B0\u01A1ng Hi\u1EC7u';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1256,51 +1752,285 @@ export interface ApiTrangGioiThieuMpmTrangGioiThieuMpm
     };
   };
   attributes: {
-    Proficiency: Attribute.Component<'content.post', true> &
+    name: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    IntroduceMPM: Attribute.Component<'content.post', true> &
+    href: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    Expert: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    Services: Attribute.Component<'content.post', true> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    banner: Attribute.Relation<
+      'api::trang-dich-vu-giai-phap-thuong-hieu.trang-dich-vu-giai-phap-thuong-hieu',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    noi_dung_giai_phap: Attribute.Relation<
+      'api::trang-dich-vu-giai-phap-thuong-hieu.trang-dich-vu-giai-phap-thuong-hieu',
+      'oneToMany',
+      'api::card.card'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm',
+      'api::trang-dich-vu-giai-phap-thuong-hieu.trang-dich-vu-giai-phap-thuong-hieu',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm',
+      'api::trang-dich-vu-giai-phap-thuong-hieu.trang-dich-vu-giai-phap-thuong-hieu',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     localizations: Attribute.Relation<
-      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm',
+      'api::trang-dich-vu-giai-phap-thuong-hieu.trang-dich-vu-giai-phap-thuong-hieu',
       'oneToMany',
-      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm'
+      'api::trang-dich-vu-giai-phap-thuong-hieu.trang-dich-vu-giai-phap-thuong-hieu'
     >;
     locale: Attribute.String;
+  };
+}
+
+export interface ApiTrangDichVuGiaiPhapTiepThiBanHangTrangDichVuGiaiPhapTiepThiBanHang
+  extends Schema.CollectionType {
+  collectionName: 'trang_dich_vu_giai_phap_tiep_thi_ban_hangs';
+  info: {
+    singularName: 'trang-dich-vu-giai-phap-tiep-thi-ban-hang';
+    pluralName: 'trang-dich-vu-giai-phap-tiep-thi-ban-hangs';
+    displayName: 'Trang D\u1ECBch V\u1EE5 - Gi\u1EA3i Ph\u00E1p Ti\u1EBFp Th\u1ECB B\u00E1n H\u00E0ng';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    href: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    banner: Attribute.Relation<
+      'api::trang-dich-vu-giai-phap-tiep-thi-ban-hang.trang-dich-vu-giai-phap-tiep-thi-ban-hang',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    noi_dung_giai_phap: Attribute.Relation<
+      'api::trang-dich-vu-giai-phap-tiep-thi-ban-hang.trang-dich-vu-giai-phap-tiep-thi-ban-hang',
+      'oneToMany',
+      'api::card.card'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-dich-vu-giai-phap-tiep-thi-ban-hang.trang-dich-vu-giai-phap-tiep-thi-ban-hang',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-dich-vu-giai-phap-tiep-thi-ban-hang.trang-dich-vu-giai-phap-tiep-thi-ban-hang',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::trang-dich-vu-giai-phap-tiep-thi-ban-hang.trang-dich-vu-giai-phap-tiep-thi-ban-hang',
+      'oneToMany',
+      'api::trang-dich-vu-giai-phap-tiep-thi-ban-hang.trang-dich-vu-giai-phap-tiep-thi-ban-hang'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiTrangDichVuMarketingTongTheTrangDichVuMarketingTongThe
+  extends Schema.CollectionType {
+  collectionName: 'trang_dich_vu_marketing_tong_thes';
+  info: {
+    singularName: 'trang-dich-vu-marketing-tong-the';
+    pluralName: 'trang-dich-vu-marketing-tong-thes';
+    displayName: 'Trang D\u1ECBch V\u1EE5 Marketing T\u1ED5ng Th\u1EC3';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    href: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    banner: Attribute.Relation<
+      'api::trang-dich-vu-marketing-tong-the.trang-dich-vu-marketing-tong-the',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    noi_dung_giai_phap: Attribute.Relation<
+      'api::trang-dich-vu-marketing-tong-the.trang-dich-vu-marketing-tong-the',
+      'oneToMany',
+      'api::card.card'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-dich-vu-marketing-tong-the.trang-dich-vu-marketing-tong-the',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-dich-vu-marketing-tong-the.trang-dich-vu-marketing-tong-the',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::trang-dich-vu-marketing-tong-the.trang-dich-vu-marketing-tong-the',
+      'oneToMany',
+      'api::trang-dich-vu-marketing-tong-the.trang-dich-vu-marketing-tong-the'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiTrangKienThucMarketingTrangKienThucMarketing
+  extends Schema.CollectionType {
+  collectionName: 'trang_kien_thuc_marketings';
+  info: {
+    singularName: 'trang-kien-thuc-marketing';
+    pluralName: 'trang-kien-thuc-marketings';
+    displayName: 'Trang Ki\u1EBFn Th\u1EE9c Marketing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    href: Attribute.String;
+    posts: Attribute.Relation<
+      'api::trang-kien-thuc-marketing.trang-kien-thuc-marketing',
+      'oneToMany',
+      'api::post.post'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-kien-thuc-marketing.trang-kien-thuc-marketing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-kien-thuc-marketing.trang-kien-thuc-marketing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTrangSuKienUuDaiTrangSuKienUuDai
+  extends Schema.CollectionType {
+  collectionName: 'trang_su_kien_uu_dais';
+  info: {
+    singularName: 'trang-su-kien-uu-dai';
+    pluralName: 'trang-su-kien-uu-dais';
+    displayName: 'Trang S\u1EF1 ki\u1EC7n - \u01AFu \u0111\u00E3i';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    href: Attribute.String;
+    posts: Attribute.Relation<
+      'api::trang-su-kien-uu-dai.trang-su-kien-uu-dai',
+      'oneToMany',
+      'api::post.post'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-su-kien-uu-dai.trang-su-kien-uu-dai',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-su-kien-uu-dai.trang-su-kien-uu-dai',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTrangTinTucTrangTinTuc extends Schema.CollectionType {
+  collectionName: 'trang_tin_tucs';
+  info: {
+    singularName: 'trang-tin-tuc';
+    pluralName: 'trang-tin-tucs';
+    displayName: 'Trang Tin T\u1EE9c';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    href: Attribute.String;
+    posts: Attribute.Relation<
+      'api::trang-tin-tuc.trang-tin-tuc',
+      'oneToMany',
+      'api::post.post'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trang-tin-tuc.trang-tin-tuc',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trang-tin-tuc.trang-tin-tuc',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
   };
 }
 
@@ -1318,19 +2048,31 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::custom-api.custom-api': PluginCustomApiCustomApi;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::case-study.case-study': ApiCaseStudyCaseStudy;
-      'api::content.content': ApiContentContent;
+      'api::banner.banner': ApiBannerBanner;
+      'api::card.card': ApiCardCard;
+      'api::check-list.check-list': ApiCheckListCheckList;
+      'api::feedback.feedback': ApiFeedbackFeedback;
+      'api::partner.partner': ApiPartnerPartner;
       'api::post.post': ApiPostPost;
+      'api::pricing.pricing': ApiPricingPricing;
+      'api::statistic.statistic': ApiStatisticStatistic;
+      'api::trang-case-study.trang-case-study': ApiTrangCaseStudyTrangCaseStudy;
       'api::trang-chu.trang-chu': ApiTrangChuTrangChu;
       'api::trang-combo-fanpage.trang-combo-fanpage': ApiTrangComboFanpageTrangComboFanpage;
       'api::trang-combo-quay-dung.trang-combo-quay-dung': ApiTrangComboQuayDungTrangComboQuayDung;
-      'api::trang-combo-tik-tok.trang-combo-tik-tok': ApiTrangComboTikTokTrangComboTikTok;
+      'api::trang-combo-tiktok.trang-combo-tiktok': ApiTrangComboTiktokTrangComboTiktok;
       'api::trang-combo-website.trang-combo-website': ApiTrangComboWebsiteTrangComboWebsite;
-      'api::trang-gioi-thieu-mpm.trang-gioi-thieu-mpm': ApiTrangGioiThieuMpmTrangGioiThieuMpm;
+      'api::trang-dich-vu-giai-phap-thuong-hieu.trang-dich-vu-giai-phap-thuong-hieu': ApiTrangDichVuGiaiPhapThuongHieuTrangDichVuGiaiPhapThuongHieu;
+      'api::trang-dich-vu-giai-phap-tiep-thi-ban-hang.trang-dich-vu-giai-phap-tiep-thi-ban-hang': ApiTrangDichVuGiaiPhapTiepThiBanHangTrangDichVuGiaiPhapTiepThiBanHang;
+      'api::trang-dich-vu-marketing-tong-the.trang-dich-vu-marketing-tong-the': ApiTrangDichVuMarketingTongTheTrangDichVuMarketingTongThe;
+      'api::trang-kien-thuc-marketing.trang-kien-thuc-marketing': ApiTrangKienThucMarketingTrangKienThucMarketing;
+      'api::trang-su-kien-uu-dai.trang-su-kien-uu-dai': ApiTrangSuKienUuDaiTrangSuKienUuDai;
+      'api::trang-tin-tuc.trang-tin-tuc': ApiTrangTinTucTrangTinTuc;
     }
   }
 }

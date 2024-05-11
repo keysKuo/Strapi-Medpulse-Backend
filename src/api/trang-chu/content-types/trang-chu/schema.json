@@ -1,10 +1,10 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "trang_chus",
   "info": {
     "singularName": "trang-chu",
     "pluralName": "trang-chus",
-    "displayName": "Trang chủ",
+    "displayName": "Trang Chủ",
     "description": ""
   },
   "options": {
@@ -16,55 +16,51 @@
     }
   },
   "attributes": {
-    "Services": {
-      "type": "component",
-      "repeatable": false,
+    "name": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "content.post"
+      "type": "string"
     },
-    "Operations": {
-      "type": "component",
-      "repeatable": false,
+    "href": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "content.post"
+      "type": "string"
     },
-    "IntroduceMPM": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "content.post"
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     },
-    "CaseStudy": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "content.post"
+    "dich_vu_cung_cap": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
     },
-    "Partners": {
-      "type": "component",
-      "repeatable": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "content.text-with-logo"
+    "thong_ke_chat_luong": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::statistic.statistic"
+    },
+    "doi_tac": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::partner.partner"
+    },
+    "feedbacks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::feedback.feedback"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post"
     }
   }
 }

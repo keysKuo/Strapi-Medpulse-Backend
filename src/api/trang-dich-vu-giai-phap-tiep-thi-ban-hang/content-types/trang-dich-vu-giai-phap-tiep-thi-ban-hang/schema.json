@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trang_dich_vu_giai_phap_tiep_thi_ban_hangs",
+  "info": {
+    "singularName": "trang-dich-vu-giai-phap-tiep-thi-ban-hang",
+    "pluralName": "trang-dich-vu-giai-phap-tiep-thi-ban-hangs",
+    "displayName": "Trang Dịch Vụ - Giải Pháp Tiếp Thị Bán Hàng"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "href": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
+    },
+    "noi_dung_giai_phap": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
+    }
+  }
+}

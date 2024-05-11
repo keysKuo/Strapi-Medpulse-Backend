@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trang_kien_thuc_marketings",
+  "info": {
+    "singularName": "trang-kien-thuc-marketing",
+    "pluralName": "trang-kien-thuc-marketings",
+    "displayName": "Trang Kiến Thức Marketing"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "href": {
+      "type": "string"
+    },
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post"
+    }
+  }
+}

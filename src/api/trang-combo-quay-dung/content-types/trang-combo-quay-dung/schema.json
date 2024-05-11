@@ -1,11 +1,10 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "trang_combo_quay_dungs",
   "info": {
     "singularName": "trang-combo-quay-dung",
     "pluralName": "trang-combo-quay-dungs",
-    "displayName": "Trang Combo Quay Dựng",
-    "description": ""
+    "displayName": "Trang Combo Quay Dựng"
   },
   "options": {
     "draftAndPublish": true
@@ -16,55 +15,36 @@
     }
   },
   "attributes": {
-    "Services": {
-      "type": "component",
-      "repeatable": true,
+    "name": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "content.post"
+      "type": "string"
     },
-    "Businesses": {
-      "type": "component",
-      "repeatable": true,
+    "href": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "component": "content.post"
+      "type": "string"
     },
-    "Benefits": {
-      "type": "component",
-      "repeatable": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "content.post"
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     },
-    "Differences": {
-      "type": "component",
-      "repeatable": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "content.post"
+    "noi_dung_combo": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
     },
-    "Combo": {
-      "type": "component",
-      "repeatable": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "content.post"
+    "pricings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pricing.pricing"
     }
   }
 }

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "check_lists",
+  "info": {
+    "singularName": "check-list",
+    "pluralName": "check-lists",
+    "displayName": "CheckList"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "label": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "checked": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "trang_combo_fanpages",
   "info": {
     "singularName": "trang-combo-fanpage",
@@ -10,32 +10,42 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
-    "Services": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.post"
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     },
-    "Businesses": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.post"
+    "href": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     },
-    "Benefits": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.post"
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     },
-    "Differences": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.post"
+    "noi_dung_combo": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
     },
-    "Combo": {
-      "type": "component",
-      "repeatable": true,
-      "component": "content.post"
+    "pricings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pricing.pricing"
     }
   }
 }
