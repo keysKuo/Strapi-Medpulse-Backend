@@ -4,7 +4,8 @@
   "info": {
     "singularName": "trang-combo",
     "pluralName": "combos",
-    "displayName": "Trang Combo"
+    "displayName": "Trang Combo",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -45,6 +46,17 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::pricing.pricing"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "private": true,
+      "component": "shared.seo"
     }
   }
 }

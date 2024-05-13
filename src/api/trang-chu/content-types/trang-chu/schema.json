@@ -61,6 +61,17 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::post.post"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.seo",
+      "private": true
     }
   }
 }

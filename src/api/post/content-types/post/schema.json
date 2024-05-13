@@ -87,6 +87,17 @@
         "Case Study",
         "Sự kiện - Ưu đãi"
       ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.seo",
+      "private": true
     }
   }
 }

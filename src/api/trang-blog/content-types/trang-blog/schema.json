@@ -4,7 +4,8 @@
   "info": {
     "singularName": "trang-blog",
     "pluralName": "blogs",
-    "displayName": "Trang Blog"
+    "displayName": "Trang Blog",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -35,6 +36,17 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::post.post"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.seo",
+      "private": true
     }
   }
 }

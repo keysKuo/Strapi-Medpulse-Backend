@@ -1248,6 +1248,13 @@ export interface ApiPostPost extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.Private &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1385,6 +1392,7 @@ export interface ApiTrangBlogTrangBlog extends Schema.CollectionType {
     singularName: 'trang-blog';
     pluralName: 'blogs';
     displayName: 'Trang Blog';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1412,6 +1420,13 @@ export interface ApiTrangBlogTrangBlog extends Schema.CollectionType {
       'oneToMany',
       'api::post.post'
     >;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.Private &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1495,6 +1510,13 @@ export interface ApiTrangChuTrangChu extends Schema.CollectionType {
       'oneToMany',
       'api::post.post'
     >;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.Private &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1525,6 +1547,7 @@ export interface ApiTrangComboTrangCombo extends Schema.CollectionType {
     singularName: 'trang-combo';
     pluralName: 'combos';
     displayName: 'Trang Combo';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1562,6 +1585,13 @@ export interface ApiTrangComboTrangCombo extends Schema.CollectionType {
       'oneToMany',
       'api::pricing.pricing'
     >;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.Private &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1620,6 +1650,13 @@ export interface ApiTrangDichVuTrangDichVu extends Schema.CollectionType {
       'api::card.card'
     >;
     href: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.Private &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
