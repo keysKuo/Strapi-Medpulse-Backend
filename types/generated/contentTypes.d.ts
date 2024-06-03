@@ -1130,6 +1130,7 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
     singularName: 'partner';
     pluralName: 'partners';
     displayName: 'Partner';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1147,6 +1148,12 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
         };
       }>;
     img: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    test: Attribute.RichText &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
