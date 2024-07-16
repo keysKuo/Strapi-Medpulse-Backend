@@ -4,7 +4,8 @@
   "info": {
     "singularName": "banner",
     "pluralName": "banners",
-    "displayName": "Banner"
+    "displayName": "Banner",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -32,11 +33,12 @@
       "type": "text"
     },
     "background": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ],
-      "type": "media",
-      "multiple": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -57,8 +59,7 @@
           "localized": true
         }
       },
-      "type": "uid",
-      "targetField": "heading"
+      "type": "uid"
     }
   }
 }

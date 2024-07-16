@@ -836,6 +836,7 @@ export interface ApiBannerBanner extends Schema.CollectionType {
     singularName: 'banner';
     pluralName: 'banners';
     displayName: 'Banner';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -870,7 +871,7 @@ export interface ApiBannerBanner extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    slug: Attribute.UID<'api::banner.banner', 'heading'> &
+    slug: Attribute.UID &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1193,18 +1194,6 @@ export interface ApiPostPost extends Schema.CollectionType {
     };
   };
   attributes: {
-    title: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    subtitle: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     body: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor5.CKEditor',
@@ -1212,18 +1201,6 @@ export interface ApiPostPost extends Schema.CollectionType {
           preset: 'toolbar';
         }
       > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    thumb: Attribute.Media &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    href: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1249,7 +1226,12 @@ export interface ApiPostPost extends Schema.CollectionType {
         };
       }>;
     seo: Attribute.Component<'shared.seo'> &
-      Attribute.Private &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1386,306 +1368,6 @@ export interface ApiStatisticStatistic extends Schema.CollectionType {
   };
 }
 
-export interface ApiTrangBlogTrangBlog extends Schema.CollectionType {
-  collectionName: 'blogs';
-  info: {
-    singularName: 'trang-blog';
-    pluralName: 'blogs';
-    displayName: 'Trang Blog';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    href: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    posts: Attribute.Relation<
-      'api::trang-blog.trang-blog',
-      'oneToMany',
-      'api::post.post'
-    >;
-    seo: Attribute.Component<'shared.seo'> &
-      Attribute.Private &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::trang-blog.trang-blog',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::trang-blog.trang-blog',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::trang-blog.trang-blog',
-      'oneToMany',
-      'api::trang-blog.trang-blog'
-    >;
-    locale: Attribute.String;
-  };
-}
-
-export interface ApiTrangChuTrangChu extends Schema.CollectionType {
-  collectionName: 'trang_chus';
-  info: {
-    singularName: 'trang-chu';
-    pluralName: 'trang-chus';
-    displayName: 'Trang Ch\u1EE7';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    href: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    banner: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToOne',
-      'api::banner.banner'
-    >;
-    dich_vu_cung_cap: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToMany',
-      'api::card.card'
-    >;
-    thong_ke_chat_luong: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToMany',
-      'api::statistic.statistic'
-    >;
-    doi_tac: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToMany',
-      'api::partner.partner'
-    >;
-    feedbacks: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToMany',
-      'api::feedback.feedback'
-    >;
-    reviews: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToMany',
-      'api::post.post'
-    >;
-    seo: Attribute.Component<'shared.seo'> &
-      Attribute.Private &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::trang-chu.trang-chu',
-      'oneToMany',
-      'api::trang-chu.trang-chu'
-    >;
-    locale: Attribute.String;
-  };
-}
-
-export interface ApiTrangComboTrangCombo extends Schema.CollectionType {
-  collectionName: 'combos';
-  info: {
-    singularName: 'trang-combo';
-    pluralName: 'combos';
-    displayName: 'Trang Combo';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    href: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    banner: Attribute.Relation<
-      'api::trang-combo.trang-combo',
-      'oneToOne',
-      'api::banner.banner'
-    >;
-    cards: Attribute.Relation<
-      'api::trang-combo.trang-combo',
-      'oneToMany',
-      'api::card.card'
-    >;
-    pricings: Attribute.Relation<
-      'api::trang-combo.trang-combo',
-      'oneToMany',
-      'api::pricing.pricing'
-    >;
-    seo: Attribute.Component<'shared.seo'> &
-      Attribute.Private &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::trang-combo.trang-combo',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::trang-combo.trang-combo',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::trang-combo.trang-combo',
-      'oneToMany',
-      'api::trang-combo.trang-combo'
-    >;
-    locale: Attribute.String;
-  };
-}
-
-export interface ApiTrangDichVuTrangDichVu extends Schema.CollectionType {
-  collectionName: 'services';
-  info: {
-    singularName: 'trang-dich-vu';
-    pluralName: 'services';
-    displayName: 'Trang D\u1ECBch V\u1EE5';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    banner: Attribute.Relation<
-      'api::trang-dich-vu.trang-dich-vu',
-      'oneToOne',
-      'api::banner.banner'
-    >;
-    contents: Attribute.Relation<
-      'api::trang-dich-vu.trang-dich-vu',
-      'oneToMany',
-      'api::card.card'
-    >;
-    href: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    seo: Attribute.Component<'shared.seo'> &
-      Attribute.Private &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::trang-dich-vu.trang-dich-vu',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::trang-dich-vu.trang-dich-vu',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::trang-dich-vu.trang-dich-vu',
-      'oneToMany',
-      'api::trang-dich-vu.trang-dich-vu'
-    >;
-    locale: Attribute.String;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1714,10 +1396,6 @@ declare module '@strapi/types' {
       'api::post.post': ApiPostPost;
       'api::pricing.pricing': ApiPricingPricing;
       'api::statistic.statistic': ApiStatisticStatistic;
-      'api::trang-blog.trang-blog': ApiTrangBlogTrangBlog;
-      'api::trang-chu.trang-chu': ApiTrangChuTrangChu;
-      'api::trang-combo.trang-combo': ApiTrangComboTrangCombo;
-      'api::trang-dich-vu.trang-dich-vu': ApiTrangDichVuTrangDichVu;
     }
   }
 }
